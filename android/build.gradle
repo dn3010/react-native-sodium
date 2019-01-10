@@ -9,12 +9,17 @@ buildscript {
 
 apply plugin: 'com.android.library'
 
+def DEFAULT_COMPILE_SDK_VERSION = 24
+def DEFAULT_BUILD_TOOLS_VERSION = "24.0.1"
+def DEFAULT_MIN_SDK_VERSION     = 16
+def DEFAULT_TARGET_SDK_VERSION  = 24
+
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion rootProject.hasProperty('compileSdkVersion') ? rootProject.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
+    buildToolsVersion rootProject.hasProperty('buildToolsVersion') ? rootProject.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 24
+        minSdkVersion rootProject.hasProperty('minSdkVersion') ? rootProject.minSdkVersion : DEFAULT_MIN_SDK_VERSION
+        targetSdkVersion rootProject.hasProperty('targetSdkVersion') ? rootProject.targetSdkVersion : DEFAULT_TARGET_SDK_VERSION
         versionCode 1
         versionName "0.1"
         externalNativeBuild {
@@ -46,7 +51,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.facebook.react:react-native:+'
+    compileOnly 'com.facebook.react:react-native:+'
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
