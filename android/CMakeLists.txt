@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.4.1)
 set(ARCH_DIR ${ANDROID_ARCH_NAME})
 
 if( ARCH_DIR STREQUAL "arm" )
-  set( ARCH_DIR "armv6" )
+  set( ARCH_DIR "armv7-a" )
 elseif( ARCH_DIR STREQUAL "arm64" )
   set( ARCH_DIR "armv8-a" )
 elseif( ARCH_DIR STREQUAL "x86" )
