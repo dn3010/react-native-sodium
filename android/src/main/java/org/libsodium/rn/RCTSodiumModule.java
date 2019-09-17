@@ -36,6 +36,14 @@ public class RCTSodiumModule extends ReactContextBaseJavaModule {
   }
 
   @Override
+  public void initialize() {
+      super.initialize();
+
+      long context = getReactApplicationContext().getJavaScriptContextHolder().get();
+      Sodium.installBinding(context);
+  }
+
+  @Override
   public String getName() {
     return "Sodium";
   }
@@ -375,7 +383,7 @@ public class RCTSodiumModule extends ReactContextBaseJavaModule {
       byte[] saltb = Base64.decode(salt, Base64.NO_WRAP);
       byte[] passwordb = Base64.decode(password, Base64.NO_WRAP);
       byte[] out = new byte[keylen];
-      
+
       int result = Sodium.crypto_pwhash(out, out.length, passwordb, passwordb.length, saltb, opslimit, memlimit, algo);
       if (result != 0)
         p.reject(ESODIUM,ERR_FAILURE);
